@@ -7,4 +7,8 @@ class Eligor(Character):
 # Styles
 
 class Vengeful(Style):
-    pass
+    min_range = 0
+    max_range = 0
+    power = 1
+    priority = 0
+    stun_guard = 3
