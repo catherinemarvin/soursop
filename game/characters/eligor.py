@@ -12,3 +12,17 @@ class Vengeful(Style):
     power = 1
     priority = 0
     stun_guard = 3
+
+    def before_activating(self):
+        self.player.advance(1)
+
+    def on_hit(self):
+        self.player.change_tokens(2)
+
+class Retribution(Style):
+    min_range = 0
+    max_range = 0
+    power = 0
+    priority = -1
+    soak = 2
+
