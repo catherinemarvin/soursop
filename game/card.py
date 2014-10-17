@@ -39,4 +39,52 @@ class Style(Card):
     pass
 
 class Base(Card):
+    is_attack = True
+    deals_damage = True
     pass
+
+class Strike(Base):
+    min_range = 1
+    max_range = 1
+    power = 4
+    priority = 3
+    stun_guard = 5
+
+class Shot(Base):
+    min_range = 1
+    max_range = 4
+    power = 3
+    priority = 2
+    stun_guard = 2
+
+class Grasp(Base):
+    min_range = 1
+    max_range = 1
+    power = 3
+    priority = 2
+    def on_hit(self):
+        self.player.move_opponent(1)
+
+def Drive(Base):
+    min_range = 1
+    max_range = 1
+    power = 3
+    priority = 4
+    def before_activating(self):
+        self.player.advance([1,2])
+
+def Burst(Base):
+    min_range = 2
+    max_range = 3
+    power = 3
+    priority = 1
+    def start_of_beat(self):
+        self.player.retreat([1,2])
+
+def Dash(Base):
+    is_attack = False
+    power = None
+    priority = 9
+    def after_activating(self):
+        self.player.advance([1,2,3])
+        # If switched side, can't get hit.
