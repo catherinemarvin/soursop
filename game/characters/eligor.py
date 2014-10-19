@@ -3,6 +3,8 @@ class Eligor(Character):
         self.unique_base = Aegis(game, self)
         self.styles = [Vengeful(game, self), CounterStyle(game, self), Martial(game, self), Chained(game, self), Retribution(game, self)]
         self.finishers = [ SheetLightning(game, self), SweetRevenge(game, self)]
+        self.max_tokens = 5
+        self.tokens = 2
 
 # Styles
 
@@ -71,3 +73,30 @@ class Aegis(Base):
             return 0
         else:
             return self.opponent.style.printed_power + self.opponent.base.printed_power
+
+class SheetLightning(Finisher):
+    min_range = 3
+    max_range = 6
+    power = 4
+    priority = 6
+
+    def on_hit(self):
+        # Advance until adjacent to opponent. Opponent cannot move next beat.
+
+class SweetRevenge(Finisher):
+    min_range = 1
+    max_range = 2
+    priority = 0
+    stun_guard = 3
+
+    @property
+    def power(self):
+        if self.player.opponent.base.printed_power is None:
+            return 0
+        else:
+            nearest_attack = self.opponent.style.printed_power + self.opponent.base.printed_power
+            return nearest_attack * 3
+
+    # Eligor's life cannot drop below 1 this beat.
+
+        

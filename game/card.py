@@ -65,7 +65,7 @@ class Grasp(Base):
     def on_hit(self):
         self.player.move_opponent(1)
 
-def Drive(Base):
+class Drive(Base):
     min_range = 1
     max_range = 1
     power = 3
@@ -73,7 +73,7 @@ def Drive(Base):
     def before_activating(self):
         self.player.advance([1,2])
 
-def Burst(Base):
+class Burst(Base):
     min_range = 2
     max_range = 3
     power = 3
@@ -81,10 +81,19 @@ def Burst(Base):
     def start_of_beat(self):
         self.player.retreat([1,2])
 
-def Dash(Base):
+class Dash(Base):
     is_attack = False
     power = None
     priority = 9
     def after_activating(self):
         self.player.advance([1,2,3])
         # If switched side, can't get hit.
+
+# Finishers, Cancel, and Pulse.
+class SpecialBase(Base):
+    pass
+
+class Finisher(SpecialBase):
+    # If the player has more than 7 life, this becomes a cancel.
+    def becomes_cancel(self):
+        return self.player.life > 7
