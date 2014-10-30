@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-responsive.css')}}">
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
@@ -36,7 +37,8 @@
 	  </form>
 	</div>
       </div>
-      {% block content %}{% endblock %}
+    </div>
+    {% block content %}{% endblock %}
   </body>
 </html>
 
